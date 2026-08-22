@@ -1,0 +1,117 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum Role {
+  ADMIN
+  CLIENT
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
+
+enum GalleryCategory {
+  PORTRAIT
+  WEDDING
+  LOVE_STORY
+  COMMERCIAL
+  EVENT
+  OTHER
+}
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String
+  name         String?
+  phone        String?
+  avatarUrl    String?
+  role         Role      @default(CLIENT)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  galleries    Gallery[]
+  bookings     Booking[]
+}
+
+model Service {
+  id          String    @id @default(cuid())
+  title       String
+  description String?
+  price       Decimal   @db.Decimal(10, 2)
+  durationMin Int?      // Shooting duration in minutes
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  bookings    Booking[]
+}
+
+model Gallery {
+  id          String          @id @default(cuid())
+  title       String
+  slug        String          @unique
+  description String?
+  category    GalleryCategory @default(EVENT)
+  pinCode     String?         // PIN code for private client access
+  isPrivate   Boolean         @default(true)
+  isFeatured  Boolean         @default(false) // Display on homepage grid
+  sortOrder   Int             @default(0)     // Custom display order
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  userId      String?
+  user        User?           @relation(fields: [userId], references: [id], onDelete: SetNull)
+  photos      Photo[]
+}
+
+model Photo {
+  id        String   @id @default(cuid())
+  url       String   // Public URL hosted on Cloudflare R2
+  key       String   // Storage object key for Cloudflare R2 deletions
+  title     String?
+  width     Int?
+  height    Int?
+  size      Int?     // File size in bytes
+  position  Int      @default(0) // Ordering position within the gallery grid
+  isCover   Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  galleryId String
+  gallery   Gallery  @relation(fields: [galleryId], references: [id], onDelete: Cascade)
+}
+
+model Booking {
+  id          String        @id @default(cuid())
+  date        DateTime
+  notes       String?
+  status      BookingStatus @default(PENDING)
+
+  // Client details for guest bookings
+  clientName  String
+  clientEmail String
+  clientPhone String?
+
+  // Financial fields
+  totalPrice  Decimal?      @db.Decimal(10, 2)
+  deposit     Decimal?      @db.Decimal(10, 2)
+
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  serviceId   String?
+  service     Service?      @relation(fields: [serviceId], references: [id], onDelete: SetNull)
+
+  userId      String?
+  user        User?         @relation(fields: [userId], references: [id], onDelete: SetNull)
+}
