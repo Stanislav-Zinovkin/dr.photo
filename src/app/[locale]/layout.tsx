@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import "@/app/globals.css";
+import { Header } from "@/components/shared/header";
 
 const inter = Inter({ subsets: ["latin", "cyrillic"] });
 
@@ -39,6 +40,7 @@ export default async function RootLayout({ children, params }: LayoutProps) {
             enableSystem
             disableTransitionOnChange
           >
+            <Header />
             {children}
           </ThemeProvider>
         </NextIntlClientProvider>
