@@ -10,13 +10,17 @@ export const metadata: Metadata = {
   description: "Online booking platform for proffesionally photography."
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{locale: string}>;
 }>) {
+  
+  const { locale } = await params; // lang from URL ([locale])
   return (
-    <html lang="uk" suppressHydrationWarning>
+    <html lang="" suppressHydrationWarning>
       <body className={inter.className}>
         <ThemeProvider
           attribute="class"
