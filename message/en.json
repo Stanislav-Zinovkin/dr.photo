@@ -1,0 +1,13 @@
+{
+    "Header": {
+        "portfolio": "Portfolio",
+        "services": "Services & Pricing",
+        "about": "About",
+        "contacts": "Contacts",
+        "book": "Book Session"
+    },
+    "Common": {
+        "themeToggle": "Toggle theme",
+        "language": "Language"
+    }
+}
