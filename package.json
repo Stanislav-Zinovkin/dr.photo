@@ -10,7 +10,8 @@
     "format": "prettier --write .",
     "db:push": "prisma db push",
     "db:studio": "prisma studio",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "i18n:generate": "npx tsx scripts/translate.ts"
   },
   "dependencies": {
     "@google/genai": "^2.18.0",
