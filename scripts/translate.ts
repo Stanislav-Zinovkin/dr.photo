@@ -1,10 +1,17 @@
 import { GoogleGenAI } from "@google/genai";
 import * as fs from "fs";
 import * as path from "path";
+import "dotenv/config";
 
-//initalization Gemini SDK
+const apiKey = process.env.GEMINI_API_KEY;
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY }); 
+if (!apiKey) {
+    console.error("❌ GEMINI_API_KEY не знайдено у файлі .env!");
+    process.exit(1);
+}
+
+// Initializing Gemini SDK
+const ai = new GoogleGenAI({ apiKey }); 
 
 const MESSAGE_DIR = path.join(process.cwd(), "message");
 const SOURCE_FILE = path.join(MESSAGE_DIR, "en.json");
@@ -33,7 +40,7 @@ JSON Content:
 ${sourceContent}`;
         try {
             const response = await ai.models.generateContent({
-                model: "gemini-2.5-flash",
+                model: "gemini-3.6-flash",
                 contents: prompt,
                 config: {
                     responseMimeType: "application/json", // Warranty of strict JSON without markaown tags

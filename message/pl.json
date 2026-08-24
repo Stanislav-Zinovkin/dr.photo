@@ -1,0 +1,13 @@
+{
+    "Header": {
+        "portfolio": "Portfolio",
+        "services": "Usługi i cennik",
+        "about": "O mnie",
+        "contacts": "Kontakt",
+        "book": "Zarezerwuj sesję"
+    },
+    "Common": {
+        "themeToggle": "Przełącz motyw",
+        "language": "Język"
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "Header": {
+        "portfolio": "Портфоліо",
+        "services": "Послуги та ціни",
+        "about": "Про нас",
+        "contacts": "Контакти",
+        "book": "Забронювати зйомку"
+    },
+    "Common": {
+        "themeToggle": "Змінити тему",
+        "language": "Мова"
+    }
+}
