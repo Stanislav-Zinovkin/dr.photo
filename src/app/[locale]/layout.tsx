@@ -7,6 +7,7 @@ import { routing } from "@/i18n/routing";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import "@/app/globals.css";
 import { Header } from "@/components/shared/header";
+import { Footer } from "@/components/shared/footer";
 
 const inter = Inter({ subsets: ["latin", "cyrillic"],
                       variable: "--font-inter",
@@ -57,6 +58,7 @@ export default async function RootLayout({ children, params }: LayoutProps) {
            <div className="relative flex min-h-screen flex-col"> 
             <Header />
             <main className="flex-1">{children}</main>
+            <Footer />
            </div> 
           </ThemeProvider>
         </NextIntlClientProvider>
