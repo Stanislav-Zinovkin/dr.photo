@@ -2,12 +2,28 @@
     "Header": {
         "portfolio": "Portfolio",
         "services": "Usługi i cennik",
-        "about": "O mnie",
+        "about": "O nas",
         "contacts": "Kontakt",
         "book": "Zarezerwuj sesję"
+    },
+    "Index": {
+        "title": "Dr.Photo | Profesjonalna fotografia i rezerwacje",
+        "description": "Platforma rezerwacji online profesjonalnych usług fotograficznych."
+    },
+    "Navigation": {
+        "portfolio": "Portfolio",
+        "booking": "Rezerwacja"
     },
     "Common": {
         "themeToggle": "Przełącz motyw",
         "language": "Język"
+    },
+    "Footer": {
+        "description": "Profesjonalne usługi fotograficzne oraz wygodna platforma rezerwacji online.",
+        "quickLinks": "Szybkie linki",
+        "legal": "Informacje prawne",
+        "privacyPolicy": "Polityka prywatności",
+        "terms": "Regulamin",
+        "rights": "Wszelkie prawa zastrzeżone."
     }
 }

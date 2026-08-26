@@ -6,8 +6,24 @@
         "contacts": "Contacts",
         "book": "Book Session"
     },
+    "Index": {
+    "title": "Dr.Photo | Professional Photography & Booking",
+    "description": "Online booking platform for professional photography."
+  },
+  "Navigation": {
+    "portfolio": "Portfolio",
+    "booking": "Booking"
+  },
     "Common": {
         "themeToggle": "Toggle theme",
         "language": "Language"
+    },
+    "Footer": {
+        "description": "Professional photography services and seamless online booking platform.",
+        "quickLinks": "Quick Links",
+        "legal": "Legal",
+        "privacyPolicy": "Privacy Policy",
+        "terms": "Terms & Conditions",
+        "rights": "All rights reserved."
     }
 }
