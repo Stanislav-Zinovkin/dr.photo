@@ -1,5 +1,6 @@
 "use client";
 
+import { useTransition } from "react";
 import { useLocale } from "next-intl";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
@@ -8,9 +9,11 @@ export function LocaleSwitcher() {
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
+  const [isPending, startTransition] = useTransition() //keep UI unblock while change locale
 
   const handleLanguageChange = (nextLocale: "en" | "uk" | "pl") => {
-    router.replace(pathname, { locale: nextLocale });
+    startTransition(() => {router.replace(pathname, { locale: nextLocale });
+    })
   };
 
   return (
@@ -20,6 +23,7 @@ export function LocaleSwitcher() {
           key={lang}
           variant={locale === lang ? "default" : "ghost"}
           size="sm"
+          disabled={isPending}
           className="uppercase text-xs h-8 px-2 font-semibold"
           onClick={() => handleLanguageChange(lang)}
         >
