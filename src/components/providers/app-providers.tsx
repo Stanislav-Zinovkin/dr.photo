@@ -1,6 +1,5 @@
 "use client";
 
-import { useMemo } from "react";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { NextIntlClientProvider, AbstractIntlMessages } from "next-intl";
 
@@ -11,9 +10,8 @@ interface AppProvidersProps {
 }
 
 export function AppProviders({ children, locale, messages }: AppProvidersProps) {
-    const memoizedMessages = useMemo(() => messages, [messages])
   return (
-    <ThemeProvider>
+    <ThemeProvider defaultTheme="dark" storageKey="theme">
       <NextIntlClientProvider 
         locale={locale} 
         messages={messages}

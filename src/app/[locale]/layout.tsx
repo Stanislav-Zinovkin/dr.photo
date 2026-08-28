@@ -43,9 +43,14 @@ export default async function RootLayout({ children, params }: LayoutProps) {
 
   const messages = await getMessages({ locale });
 
-  return (
-    <html lang={locale} className={inter.variable} suppressHydrationWarning>
-      <body className=" min-h-screen bg-background text-foreground antialiased" suppressHydrationWarning>
+return (
+    <html 
+      lang={locale} 
+      className={`${inter.variable} dark`} 
+      style={{ colorScheme: "dark" }}
+      suppressHydrationWarning
+    >
+      <body className="min-h-screen bg-background text-foreground antialiased font-sans" suppressHydrationWarning>
         <AppProviders locale={locale} messages={messages}>
           <div className="relative flex min-h-screen flex-col"> 
             <Header />
