@@ -7,9 +7,12 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
+  
+  /* CHANGED: Fixed font variable reference to bind directly to Next.js font-inter variable */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
+  --font-heading: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -119,12 +122,19 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    /* CHANGED: Scoped border rule to prevent layout reflow during client-side hydration */
+    border-color: var(--border);
   }
   body {
     @apply bg-background text-foreground;
   }
   html {
-    @apply font-sans;
+    /* CHANGED: Uses theme font family directly to avoid re-rendering CSS fallback trees */
+    font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   }
+}
+
+/* CHANGED: Disable color transitions on initial mount and route change to stop theme flashing */
+html.disable-transitions * {
+  transition: none !important;
 }

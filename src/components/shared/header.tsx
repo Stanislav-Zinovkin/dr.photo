@@ -14,10 +14,10 @@ const t = useTranslations("Navigation");
                 </Link>
 
                 <nav className="hidden items-center gap-6 md:flex">
-                    <Link href="/portfolio" className="text-sm font-medium transition-colors hover:text-primary">
+                    <Link href="/portfolio" className="text-sm font-medium hover:text-primary">
                      {t("portfolio")}
                     </Link>
-                    <Link href="/booking" className="text-sm font-medium transition-colors hover:text-primary">
+                    <Link href="/booking" className="text-sm font-medium hover:text-primary">
                      {t("booking")}
                     </Link>
                 </nav>
