@@ -8,7 +8,8 @@
     "services": "Services & Pricing",
     "about": "About",
     "contacts": "Contacts",
-    "booking": "Book Session"
+    "booking": "Book Session",
+    "language": "Language"
   },
   "Common": {
     "themeToggle": "Toggle theme",
