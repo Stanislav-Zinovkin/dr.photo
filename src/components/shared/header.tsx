@@ -1,16 +1,26 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { LocaleSwitcher } from "./locale-switcher";
 import { ThemeToggle } from "./theme-toggle";
 import { Menu, X } from "lucide-react";
+import type { Dictionary } from "@/lib/dictionary";
 
-export function Header() {
-  const t = useTranslations("Navigation");
+interface HeaderProps {
+  navDict: Dictionary["Navigation"];
+  commonDict: Dictionary["Common"];
+}
+
+export function Header({ navDict, commonDict }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
+
+  const currentLocale = pathname.split("/")[1] || "en";
+
+  const getLocalizedPath = (path: string) => `/${currentLocale}${path}`;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,17 +37,17 @@ export function Header() {
         : "bg-transparent border-transparent"
     }`}>
       <div className="container flex h-20 items-center justify-between px-4 mx-auto">
-        <Link href="/" className="font-bold text-xl tracking-tight text-white shrink-0">
+        <Link href={getLocalizedPath("")} className="font-bold text-xl tracking-tight text-white shrink-0">
           Dr.<span className="text-primary">Photo</span>
         </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden items-center gap-8 md:flex">
-          <Link href="/portfolio" className="text-sm font-medium text-white/90 hover:text-white transition-colors">
-            {t("portfolio")}
+          <Link href={getLocalizedPath("/portfolio")} className="text-sm font-medium text-white/90 hover:text-white transition-colors">
+            {navDict.portfolio}
           </Link>
-          <Link href="/booking" className="text-sm font-medium text-white/90 hover:text-white transition-colors">
-            {t("booking")}
+          <Link href={getLocalizedPath("/booking")} className="text-sm font-medium text-white/90 hover:text-white transition-colors">
+            {navDict.booking}
           </Link>
         </nav>
 
@@ -65,23 +75,23 @@ export function Header() {
         <div className="absolute top-20 left-0 w-full border-b bg-background/95 backdrop-blur-md p-6 shadow-xl md:hidden flex flex-col gap-6 animate-in slide-in-from-top-2 text-foreground">
           <nav className="flex flex-col gap-4">
             <Link
-              href="/portfolio"
+              href={getLocalizedPath("/portfolio")}
               onClick={() => setMobileMenuOpen(false)}
               className="text-base font-medium hover:text-primary transition-colors"
             >
-              {t("portfolio")}
+              {navDict.portfolio}
             </Link>
             <Link
-              href="/booking"
+              href={getLocalizedPath("/booking")}
               onClick={() => setMobileMenuOpen(false)}
               className="text-base font-medium hover:text-primary transition-colors"
             >
-              {t("booking")}
+              {navDict.booking}
             </Link>
           </nav>
           
           <div className="pt-4 border-t flex items-center justify-between">
-            <span className="text-sm text-muted-foreground">{t("language")}</span>
+            <span className="text-sm text-muted-foreground">{commonDict.language}</span>
             <LocaleSwitcher />
           </div>
         </div>

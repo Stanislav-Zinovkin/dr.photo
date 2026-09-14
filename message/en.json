@@ -15,6 +15,13 @@
     "themeToggle": "Toggle theme",
     "language": "Language"
   },
+  "Hero": {
+  "eyebrow": "Visual Storyteller",
+  "title": "Cinematic stories told through light and emotion.",
+  "description": "Atmospheric, timeless imagery that preserves the authentic beauty of your moments.",
+  "bookExperience": "Book Experience",
+  "portfolio": "Portfolio" 
+  },
   "Footer": {
     "description": "Professional photography services and seamless online booking platform.",
     "quickLinks": "Quick Links",

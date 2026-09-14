@@ -5,9 +5,9 @@ import pl from "../../message/pl.json";
 import uk from "../../message/uk.json";
 
 const dictionaries = {
-    en: () => en,
-    pl: () => pl,
-    uk: () => uk,
+  en: () => (en as any).default || en,
+  uk: () => (uk as any).default || uk,
+  pl: () => (pl as any).default || pl,
 };
 
 export type Dictionary = typeof en;

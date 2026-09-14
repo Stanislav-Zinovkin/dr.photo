@@ -11,10 +11,13 @@ if (!apiKey) {
 }
 
 // Initializing Gemini SDK
-const ai = new GoogleGenAI({ apiKey }); 
+
+const ai = new GoogleGenAI({ apiKey });
 
 const MESSAGE_DIR = path.join(process.cwd(), "message");
+
 const SOURCE_FILE = path.join(MESSAGE_DIR, "en.json");
+
 const TARGET_LOCALES = ["uk","pl"];
 
 async function translateMessage(){
@@ -24,20 +27,18 @@ async function translateMessage(){
     }
 
     const sourceContent = fs.readFileSync(SOURCE_FILE, "utf-8");
-
     for ( const locale of TARGET_LOCALES) {
         console.log(`Translating en.json to ${locale}...`);
-
         const prompt = `You are a professional translator for a high-end photography platform.
 Translate the following JSON object from English to target language code: "${locale}".
-
 STRICT RULES:
 1. Do NOT modify, translate, or remove any JSON keys.
 2. Translate ONLY the string values.
 3. Keep the translation concise, formal, and accurate for a professional photography website context.
-
 JSON Content:
+
 ${sourceContent}`;
+
         try {
             const response = await ai.models.generateContent({
                 model: "gemini-3.6-flash",
@@ -46,6 +47,7 @@ ${sourceContent}`;
                     responseMimeType: "application/json", // Warranty of strict JSON without markaown tags
                 },
             });
+
             const cleanJson = response.text ? response.text.trim() : "";
 
             //Cheking validation JSON before saving
@@ -55,7 +57,9 @@ ${sourceContent}`;
             fs.writeFileSync(targetPath, cleanJson, "utf-8");
             console.log(`Successfully generated message/${locale}.json`);
         } catch (error) {
+
             console.error(`Error translating to ${locale}:`, error);
+
         }
     }
 }
