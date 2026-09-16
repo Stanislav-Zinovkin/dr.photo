@@ -1,18 +1,20 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { getMessages, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { routing } from "@/i18n/routing";
 import "@/app/globals.css";
 import { Header } from "@/components/shared/header";
 import { Footer } from "@/components/shared/footer";
 import { AppProviders } from "@/components/providers/app-providers";
+import { getDictionary } from "@/lib/dictionary";
 
+// Fonts
 const inter = Inter({ 
   subsets: ["latin", "cyrillic"],
   variable: "--font-inter",
   display: "swap",
 });
+
+const locales = ["en", "uk", "pl"];
 
 export interface LayoutProps {
   children: React.ReactNode;
@@ -21,29 +23,31 @@ export interface LayoutProps {
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
-
-  if (!routing.locales.includes(locale as any)) {
+  
+// checking locale 
+  if (!locales.includes(locale)) {
     return {};
   }
-
-  const t = await getTranslations({ locale, namespace: "Index" });
+  
+  const dict = await getDictionary(locale);
 
   return {
-    title: t("title"),
-    description: t("description"),
+    title: dict.Index?.title || "Dr.Photo",
+    description: dict.Index?.description || "Professional photography",
   };
 }
 
 export default async function RootLayout({ children, params }: LayoutProps) {
   const { locale } = await params;
 
-  if (!routing.locales.includes(locale as any)) {
+  if (!locales.includes(locale)) {
     notFound();
   }
 
-  const messages = await getMessages({ locale });
 
-return (
+  const dict = await getDictionary(locale);
+
+  return (
     <html 
       lang={locale} 
       className={`${inter.variable} dark`} 
@@ -51,11 +55,11 @@ return (
       suppressHydrationWarning
     >
       <body className="min-h-screen bg-background text-foreground antialiased font-sans" suppressHydrationWarning>
-        <AppProviders locale={locale} messages={messages}>
+        <AppProviders >
           <div className="relative flex min-h-screen flex-col"> 
-            <Header />
+            <Header navDict={dict.Navigation} commonDict={dict.Common} />
             <main className="flex-1 w-full">{children}</main>
-            <Footer />
+            <Footer footerDict={dict.Footer} navDict={dict.Navigation} />
           </div> 
         </AppProviders>
       </body>

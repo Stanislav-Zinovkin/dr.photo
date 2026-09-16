@@ -14,5 +14,6 @@ export type Dictionary = typeof en;
 
 export async function getDictionary(locale: string): Promise<Dictionary> {
     const loadFn = dictionaries[locale as keyof typeof dictionaries] || dictionaries.en;
-    return loadFn();
+    const rawDict = loadFn();
+    return (rawDict as any).default || rawDict;
 }

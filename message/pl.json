@@ -1,6 +1,6 @@
 {
   "Index": {
-    "title": "Dr.Photo | Profesjonalna fotografia i rezerwacje",
+    "title": "Dr.Photo | Profesjonalna Fotografia i Rezerwacja",
     "description": "Platforma rezerwacji online dla profesjonalnej fotografii."
   },
   "Navigation": {
@@ -15,8 +15,15 @@
     "themeToggle": "Przełącz motyw",
     "language": "Język"
   },
+  "Hero": {
+    "eyebrow": "Wizualny narrator",
+    "title": "Filmowe historie opowiedziane światłem i emocjami.",
+    "description": "Nastrojowe, ponadczasowe kadry uwieczniające autentyczne piękno Twoich chwil.",
+    "bookExperience": "Zarezerwuj sesję",
+    "portfolio": "Portfolio"
+  },
   "Footer": {
-    "description": "Profesjonalne usługi fotograficzne i wygodna platforma rezerwacji online.",
+    "description": "Profesjonalne usługi fotograficzne i intuicyjna platforma rezerwacji online.",
     "quickLinks": "Szybkie linki",
     "legal": "Informacje prawne",
     "privacyPolicy": "Polityka prywatności",

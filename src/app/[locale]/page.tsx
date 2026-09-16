@@ -1,10 +1,18 @@
+import { getDictionary } from "@/lib/dictionary";
 import { HeroSection } from "@/components/home/hero-section";
 
-export default function HomePage() {
+interface PageProps {
+  params: Promise<{locale: string}>;
+}
+
+export default async function HomePage({ params }: PageProps) {
+  const {locale} = await params;
+  const dict = await getDictionary(locale);
+
   return (
     <>
-      <HeroSection />
-      {/* Наступні секції сайту додаватимемо сюди ж */}
+    <HeroSection heroDict={dict.Hero}/>
+    
     </>
-  );
+  )
 }
