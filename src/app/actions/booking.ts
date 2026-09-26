@@ -1,7 +1,9 @@
 "use server";
 
+import { prisma } from "@/lib/prisma";
 import { parseBookingFormData } from "@/lib/validation";
 import { headers } from "next/headers";
+
 
 // (Memory Rate Limiting)
 const rateLimitMap = new Map<string, { count: number; timestamp: number }>();
@@ -54,12 +56,35 @@ export async function submitBooking(prevState: any, formData: FormData) {
       bookingConsentGiven: validatedData.rodoBooking,
     }
   };
+   
+  try {
+    const bookingDate = new Date(`${validatedData.date}T${validatedData.time}:00Z`);
 
-  // ---- ТУТ БУДЕ ЗБЕРЕЖЕННЯ В БАЗУ ДАНИХ (Prisma / PostgreSQL) ----
-  // приклад: await db.booking.create({ data: secureBookingRecord })
-  // -------------------------------------------------------------
+await prisma.booking.create({
+  data: {
+    serviceId: validatedData.serviceId,
+    date: bookingDate,
+    clientName: validatedData.name,
+    clientEmail: validatedData.contact, // або розділити, якщо це імейл/телефон
+    rodoBooking: validatedData.rodoBooking,
+    rodoMarketing: validatedData.rodoMarketing,
+    ipAddress: ip,
+    userAgent: userAgent,
+    policyVersion: "1.0",
+    status: "PENDING",
+  },
+});
 
-  console.log("Secured Booking Recorded:", secureBookingRecord);
+
+
+console.log("Booking successfully saved to DB for:", validatedData.name);
+  } catch (error) {
+    console.error("Database error during booking creation:", error);
+    return { 
+      success: false, 
+      error: "Błąd serwera. Spróbuj ponownie później. / Server error." 
+    };
+  }
 
   return { success: true };
 }

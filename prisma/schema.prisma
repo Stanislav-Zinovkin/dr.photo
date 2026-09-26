@@ -102,6 +102,12 @@ model Booking {
   clientEmail String
   clientPhone String?
 
+  rodoBooking   Boolean   @default(false)
+  rodoMarketing Boolean   @default(false)
+  ipAddress     String?
+  userAgent     String?
+  policyVersion String    @default("1.0")
+
   // Financial fields
   totalPrice  Decimal?      @db.Decimal(10, 2)
   deposit     Decimal?      @db.Decimal(10, 2)

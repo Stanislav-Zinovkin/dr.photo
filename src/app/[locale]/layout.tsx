@@ -6,6 +6,7 @@ import { Header } from "@/components/shared/header";
 import { Footer } from "@/components/shared/footer";
 import { AppProviders } from "@/components/providers/app-providers";
 import { getDictionary } from "@/lib/dictionary";
+import { Toaster } from "sonner";
 
 // Fonts
 const inter = Inter({ 
@@ -59,6 +60,7 @@ export default async function RootLayout({ children, params }: LayoutProps) {
           <div className="relative flex min-h-screen flex-col"> 
             <Header navDict={dict.Navigation} commonDict={dict.Common} />
             <main className="flex-1 w-full">{children}</main>
+            <Toaster theme="dark" position="bottom-right" richColors />
             <Footer footerDict={dict.Footer} navDict={dict.Navigation} />
           </div> 
         </AppProviders>
