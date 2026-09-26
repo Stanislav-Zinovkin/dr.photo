@@ -22,6 +22,26 @@
   "bookExperience": "Book Experience",
   "portfolio": "Portfolio" 
   },
+  "Booking": {
+    "title": "Book a Session",
+    "subtitle": "Choose a service and pick a convenient time.",
+    "selectService": "Select Service Type",
+    "date": "Preferred Date",
+    "time": "Preferred Time",
+    "name": "Your Name",
+    "contact": "Email or Phone",
+    "submit": "Confirm Booking Request",
+    "successTitle": "Booking Confirmed!",
+    "successMessage": "Thank you for your request. We will contact you shortly to finalize details.",
+    "bookAnother": "Book Another",
+    "rodoConsent": "I consent to the processing of my personal data for the purpose of handling the booking.",
+    "marketingConsent": "I want to receive information about discounts, special offers, and holiday greetings (Easter, Christmas, New Year) to my email address."
+  },
+  "Services": {
+    "portrait": "Portrait Session",
+    "studio": "Studio Lighting",
+    "street": "Street & Cinematic"
+  },
   "Footer": {
     "description": "Professional photography services and seamless online booking platform.",
     "quickLinks": "Quick Links",
