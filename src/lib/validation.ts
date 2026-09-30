@@ -31,13 +31,13 @@ export const bookingSchema = z.object({
 export type BookingFormData = z.infer<typeof bookingSchema>;
 
 export function parseBookingFormData(formData: FormData) {
-    const rawData = {
+     const rawData = {
         serviceId: formData.get("serviceId"),
         date: formData.get("date"),
         time: formData.get("time"),
         name: formData.get("name"),
         contact: formData.get("contact"),
-        rodoBookiong: formData.get("rodoBooking") === "on",
+        rodoBooking: formData.get("rodoBooking") === "on",
         rodoMarketing: formData.get("rodoMarketing") === "on",
     };
     return bookingSchema.safeParse(rawData);
