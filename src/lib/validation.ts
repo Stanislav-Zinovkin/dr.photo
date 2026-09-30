@@ -16,7 +16,8 @@ export const bookingSchema = z.object({
     .min(2, "Name is too short")
     .max(30, "Name is too long")
     .trim()
-    .refine((val) => !/[<>script]/i.test(val), "Invalid characters detected"),
+    .refine((val) => !/[<>]/g.test(val), "Invalid characters detected")
+    .refine((val) => /^[\p{L}\s'-]+$/u.test(val), "Only letters, spaces, hyphens and apostrophes are allowed"),
   contact: z
     .string()
     .min(5, "Contact too short")

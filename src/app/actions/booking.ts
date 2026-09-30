@@ -36,6 +36,7 @@ export async function submitBooking(prevState: any, formData: FormData) {
   //  Validatio Zod + Service Config 
   const parsed = parseBookingFormData(formData);
   if (!parsed.success) {
+    console.error("Zod Validation Errors:", parsed.error.flatten().fieldErrors);
     return { 
       success: false, 
       error: "Nieprawidłowe dane formularza. / Invalid form data." 
