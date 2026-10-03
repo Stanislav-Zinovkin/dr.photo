@@ -98,6 +98,7 @@ export function BookingForm({ dict }: BookingFormProps) {
                 type="date"
                 name="date"
                 required
+                min={new Date().toISOString().split("T")[0]}
                 className="bg-zinc-800 border-white/10 text-white"
               />
             </div>
@@ -109,6 +110,8 @@ export function BookingForm({ dict }: BookingFormProps) {
                 type="time"
                 name="time"
                 required
+                min="09:00"
+                max="20:00"
                 className="bg-zinc-800 border-white/10 text-white"
               />
             </div>

@@ -49,5 +49,12 @@
     "privacyPolicy": "Privacy Policy",
     "terms": "Terms & Conditions",
     "rights": "All rights reserved."
+  },
+  "email":{
+    "subject": "Booking Confirmation - Dr.Photo",
+    "greeting": "Hello,",
+    "body": "Your booking has been successfully created. We look forward to seeing you!",
+    "service": "Service:",
+    "date": "Date & Time:"
   }
 }
