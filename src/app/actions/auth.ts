@@ -40,11 +40,11 @@ export async function adminLogin(prevState: any, formData: FormData) {
         console.error('Login error:', error);
         return { error: 'something went wrong during login' };
     }
-    redirect('/admin')
+    redirect('/en/admin')
 }
 
 export async function adminLogout() {
     const cookieStore = await cookies();
     cookieStore.delete('admin_sessiom');
-    redirect('/admin/login');
+    redirect('/en/admin/login');
 }
