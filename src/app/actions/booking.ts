@@ -1,34 +1,29 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
+import { bookingRateLimit } from "@/lib/rateLimit";
 import { parseBookingFormData } from "@/lib/validation";
 import { headers } from "next/headers";
 
-
-// (Memory Rate Limiting)
-const rateLimitMap = new Map<string, { count: number; timestamp: number }>();
-
-export async function submitBooking(prevState: any, formData: FormData) {
+export type BookingState = {
+  success?: boolean;
+  error?: string;
+} | null;
+export async function submitBooking(prevState: BookingState, formData: FormData) {
   const headersList = await headers();
   const ip = headersList.get("x-forwarded-for") || headersList.get("x-real-ip") || "127.0.0.1";
   const userAgent = headersList.get("user-agent") || "unknown";
 
   // Rate Limiting
-  const now = Date.now();
-  const userLimit = rateLimitMap.get(ip);
-  if (userLimit && now - userLimit.timestamp < 60000) {
-    if (userLimit.count >= 5) {
-      return { 
-        success: false, 
-        error: "Za dużo próśb. Spróbuj ponownie później. / Too many requests." 
-      };
+  const { success } = await bookingRateLimit.limit(ip);
+
+  if(!success) {
+    return {
+      success: false,
+      error: "Too many requests. Try a bit later."
     }
-    userLimit.count++;
-  } else {
-    rateLimitMap.set(ip, { count: 1, timestamp: now });
   }
 
-  
   if (formData.get("website_trap")) {
     return { success: true };
   }
@@ -52,7 +47,7 @@ export async function submitBooking(prevState: any, formData: FormData) {
       ipAddress: ip,
       userAgent: userAgent,
       createdAt: new Date().toISOString(),
-      privacyPolicyVersion: "1.0", // Фіксуємо версію політики на момент згоди
+      privacyPolicyVersion: "1.0", 
       marketingConsentGiven: validatedData.rodoMarketing,
       bookingConsentGiven: validatedData.rodoBooking,
     }
@@ -66,7 +61,7 @@ await prisma.booking.create({
     serviceId: validatedData.serviceId,
     date: bookingDate,
     clientName: validatedData.name,
-    clientEmail: validatedData.contact, // або розділити, якщо це імейл/телефон
+    clientEmail: validatedData.contact, 
     rodoBooking: validatedData.rodoBooking,
     rodoMarketing: validatedData.rodoMarketing,
     ipAddress: ip,
@@ -83,7 +78,7 @@ console.log("Booking successfully saved to DB for:", validatedData.name);
     console.error("Database error during booking creation:", error);
     return { 
       success: false, 
-      error: "Błąd serwera. Spróbuj ponownie później. / Server error." 
+      error: "Server error." 
     };
   }
 

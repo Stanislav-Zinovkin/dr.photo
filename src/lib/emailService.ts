@@ -11,7 +11,7 @@ interface SendBookingEmailParams {
     locale: 'en' | 'pl' | 'uk';
 }
 
-export async function sendBookingCondirmation({
+export async function sendBookingConfirmation({
     clientName,
     clientEmail,
     serviceTitle,

@@ -4,16 +4,16 @@ import en from "../../message/en.json";
 import pl from "../../message/pl.json";
 import uk from "../../message/uk.json";
 
-const dictionaries = {
-  en: () => (en as any).default || en,
-  uk: () => (uk as any).default || uk,
-  pl: () => (pl as any).default || pl,
+export type Dictionary = typeof en;
+
+const dictionaries: Record<string, () => Dictionary> = {
+  en: () => en,
+  uk: () => uk as Dictionary,
+  pl: () => pl as Dictionary,
 };
 
-export type Dictionary = typeof en;
 
 export async function getDictionary(locale: string): Promise<Dictionary> {
     const loadFn = dictionaries[locale as keyof typeof dictionaries] || dictionaries.en;
-    const rawDict = loadFn();
-    return (rawDict as any).default || rawDict;
+    return loadFn();
 }

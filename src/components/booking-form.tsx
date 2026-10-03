@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect } from 'react';
+import { useActionState, useEffect, useRef } from 'react';
 import { useState } from 'react';
 import { serviceConfig } from '@/data/services';
 import { Button } from '@/components/ui/button';
@@ -19,7 +19,8 @@ export function BookingForm({ dict }: BookingFormProps) {
     const params = useParams();
     const locale = params.locale as string;   
     const [selectedService, setSelectedService] = useState(serviceConfig[0].id);
-    
+    const formRef = useRef<HTMLFormElement>(null);
+
     const [state, formAction, isPending] = useActionState(submitBooking, null);
     console.log("SERVER STATE RESPONSE:", state);
     useEffect(() => {
@@ -28,6 +29,8 @@ export function BookingForm({ dict }: BookingFormProps) {
                 description: dict.Booking?.successMessage || "Thank you for your request. We will contact you shortly :)",
                 duration: 5000,
             });
+            formRef.current?.reset();
+            setSelectedService(serviceConfig[0].id);
         } else if (state?.error) {
             toast.error("Błąd / Error", {
                 description: state.error,
