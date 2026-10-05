@@ -56,5 +56,12 @@
     "body": "Your booking has been successfully created. We look forward to seeing you!",
     "service": "Service:",
     "date": "Date & Time:"
+  },
+  "emailCancel": {
+    "subject": "Your Booking has been Cancelled",
+    "greeting": "Hello",
+    "body": "We regret to inform you that your booking has been cancelled by the administrator.",
+    "service": "Service:",
+    "date": "Date:"
   }
 }
