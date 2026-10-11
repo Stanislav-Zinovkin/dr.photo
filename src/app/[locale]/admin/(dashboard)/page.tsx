@@ -4,7 +4,7 @@ import AdminDashboardContent from '@/components/admin/adminDashboard';
 export const dynamic = 'force-dynamic';
 
 export default async function AdminPage() {
-    // Отримуємо бронювання з сервісами
+   
     const rawBookings = await prisma.booking.findMany({
         orderBy: { createdAt: 'desc' },
         include: { service: true }
@@ -18,7 +18,7 @@ export default async function AdminPage() {
         } : null,
     }));
 
-    // Отримуємо послуги
+    
     const rawServices = await prisma.service.findMany({
         orderBy: { title: 'asc' },
     });
@@ -35,7 +35,6 @@ export default async function AdminPage() {
                 <p className="text-zinc-400 text-sm">Manage studio bookings, statuses, and service packages.</p>
             </div>
 
-            {/* Рендеримо клієнтський компонент з табами та сайдбаром */}
             <AdminDashboardContent initialBookings={bookings} initialServices={services} />
         </div>
     );
