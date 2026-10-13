@@ -73,6 +73,7 @@ model Gallery {
   userId      String?
   user        User?           @relation(fields: [userId], references: [id], onDelete: SetNull)
   photos      Photo[]
+  clientEmail String?
 }
 
 model Photo {
